@@ -6,7 +6,10 @@ var game = require('./controllers/gamecontroller');
 //var bcrypt = require('bcryptjs');
 
 
-db.sync();
+db.sync().then(result => {
+    console.log('!!!!!');
+})
+    .catch(err => console.log('888', err));
 app.use(express.json());
 app.use('/api/auth', user);
 app.use(require('./middleware/validate-session'))

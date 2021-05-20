@@ -14,7 +14,7 @@ module.exports = function (req, res, next) {
                     User.findOne({ where: { id: decoded.id } }).then(user => {
                         req.user = user;
                         console.log(`user: ${user}`)
-                        next()
+                        next();
                     },
                         function () {
                             res.status(401).send({ error: "not authorized" });
