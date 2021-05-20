@@ -5,10 +5,7 @@ var user = require('./controllers/usercontroller');
 var game = require('./controllers/gamecontroller');
 
 
-db.sync().then(result => {
-    console.log('!!!!!');
-})
-    .catch(err => console.log('888', err));
+db.sync();
 app.use(express.json());
 app.use('/api/auth', user);
 app.use(require('./middleware/validate-session'))

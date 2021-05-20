@@ -16,8 +16,8 @@ router.post('/signup', (req, res) => {
             function signupSuccess(user) {
                 let token = jwt.sign({ id: user.id }, 'lets_play_sum_games_man', { expiresIn: 60 * 60 * 24 });
                 res.status(200).json({
-                    user: user,
-                    token: token
+                    user,
+                    token
                 })
             },
 
@@ -34,7 +34,7 @@ router.post('/signin', (req, res) => {
                 if (matches) {
                     var token = jwt.sign({ id: user.id }, 'lets_play_sum_games_man', { expiresIn: 60 * 60 * 24 });
                     res.json({
-                        user: user,
+                        user,
                         message: "Successfully authenticated.",
                         sessionToken: token
                     });

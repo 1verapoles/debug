@@ -12,8 +12,7 @@ module.exports = function (sequelize, DataTypes) {
 
         passwordHash: {
             type: DataTypes.STRING,
-            allowNull: false,
-            //defaultValue: '$2a$10$7UQ9misfwDmfZTathSEqa.FAYGHXMfe/wqEBJ7zV/S.ybaNRR53bO'
+            allowNull: false
         },
 
         email: {
