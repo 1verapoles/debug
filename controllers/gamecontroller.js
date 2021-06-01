@@ -4,9 +4,9 @@ var Game = require('../db').import('../models/game');
 router.get('/all', (req, res) => {
     Game.findAll({ where: { owner_id: req.user.id } })
         .then(
-            function findSuccess(data) {
+            function findSuccess(games) {
                 res.status(200).json({
-                    games: games,
+                    games,
                     message: "Data fetched."
                 })
             },
@@ -24,7 +24,7 @@ router.get('/:id', (req, res) => {
         .then(
             function findSuccess(game) {
                 res.status(200).json({
-                    game: game
+                    game
                 })
             },
 
@@ -39,7 +39,7 @@ router.get('/:id', (req, res) => {
 router.post('/create', (req, res) => {
     Game.create({
         title: req.body.game.title,
-        owner_id: req.body.user.id,
+        owner_id: req.user.id,
         studio: req.body.game.studio,
         esrb_rating: req.body.game.esrb_rating,
         user_rating: req.body.game.user_rating,
@@ -48,7 +48,7 @@ router.post('/create', (req, res) => {
         .then(
             function createSuccess(game) {
                 res.status(200).json({
-                    game: game,
+                    game,
                     message: "Game created."
                 })
             },
@@ -70,13 +70,13 @@ router.put('/update/:id', (req, res) => {
         {
             where: {
                 id: req.params.id,
-                owner_id: req.user
+                owner_id: req.user.id
             }
         })
         .then(
             function updateSuccess(game) {
                 res.status(200).json({
-                    game: game,
+                    game,
                     message: "Successfully updated."
                 })
             },
@@ -97,20 +97,20 @@ router.delete('/remove/:id', (req, res) => {
             owner_id: req.user.id
         }
     })
-    .then(
-        function deleteSuccess(game) {
-            res.status(200).json({
-                game: game,
-                message: "Successfully deleted"
-            })
-        },
+        .then(
+            function deleteSuccess(game) {
+                res.status(200).json({
+                    game,
+                    message: "Successfully deleted"
+                })
+            },
 
-        function deleteFail(err) {
-            res.status(500).json({
-                error: err.message
-            })
-        }
-    )
+            function deleteFail(err) {
+                res.status(500).json({
+                    error: err.message
+                })
+            }
+        )
 })
 
-module.exports = routers;
+module.exports = router;
